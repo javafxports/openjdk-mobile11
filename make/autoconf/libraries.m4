@@ -50,8 +50,8 @@ AC_DEFUN_ONCE([LIB_DETERMINE_DEPENDENCIES],
   fi
 
   # Check if fontconfig is needed
-  if test "x$OPENJDK_TARGET_OS" = xwindows || test "x$OPENJDK_TARGET_OS" = xmacosx; then
-    # No fontconfig support on windows or macosx
+  if test "x$OPENJDK_TARGET_OS" = xwindows || test "x$OPENJDK_TARGET_OS" = xmacosx || test "x$OPENJDK_TARGET_OS" = xios || test "x$OPENJDK_TARGET_OS" = xandroid; then
+    # No fontconfig support on windows, macosx, ios and android
     NEEDS_LIB_FONTCONFIG=false
   else
     # All other instances need fontconfig, even if building headless only,
