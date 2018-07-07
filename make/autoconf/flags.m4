@@ -212,7 +212,7 @@ AC_DEFUN([FLAGS_SETUP_SYSROOT_FLAGS],
     fi
   fi
 
-  if test "x$OPENJDK_TARGET_OS" = xmacosx; then
+  if test "x$OPENJDK_BUILD_OS" = xmacosx; then
     # We also need -iframework<path>/System/Library/Frameworks
     $1SYSROOT_CFLAGS="[$]$1SYSROOT_CFLAGS -iframework [$]$1SYSROOT/System/Library/Frameworks"
     $1SYSROOT_LDFLAGS="[$]$1SYSROOT_LDFLAGS -iframework [$]$1SYSROOT/System/Library/Frameworks"

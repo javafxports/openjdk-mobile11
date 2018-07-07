@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 1998, 2018, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
@@ -218,8 +219,20 @@ inline int g_isnan(double f) { return isnan(f); }
 
 // Checking for finiteness
 
+#ifdef __APPLE__
+#include <TargetConditionals.h>
+#else
+#define TARGET_OS_IPHONE 0
+#endif
+
+#if TARGET_OS_IPHONE
+#define USE_LIBRARY_BASED_TLS_ONLY
+inline int g_isfinite(jfloat  f)                 { return isfinite(f); }
+inline int g_isfinite(jdouble f)                 { return isfinite(f); }
+#else
 inline int g_isfinite(jfloat  f)                 { return finite(f); }
 inline int g_isfinite(jdouble f)                 { return finite(f); }
+#endif
 
 
 // Wide characters
