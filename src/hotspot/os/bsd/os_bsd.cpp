@@ -111,9 +111,11 @@
 
 #ifdef __APPLE__
   #include <mach/mach.h> // semaphore_* API
+#if ! TARGET_OS_IPHONE
   #include <mach-o/dyld.h>
   #include <sys/proc_info.h>
   #include <objc/objc-auto.h>
+#endif
 #endif
 
 #ifndef MAP_ANONYMOUS
