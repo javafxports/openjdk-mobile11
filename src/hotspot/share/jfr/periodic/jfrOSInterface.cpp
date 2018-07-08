@@ -34,8 +34,10 @@
 
 #include <stdlib.h> // for environment variables
 #ifdef __APPLE__
+#ifndef TARGET_OS_IPHONE
 #include <crt_externs.h>
 #define environ (*_NSGetEnviron())
+#endif
 #endif
 
 #ifndef environ
