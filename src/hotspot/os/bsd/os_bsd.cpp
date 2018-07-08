@@ -1534,7 +1534,7 @@ int os::get_loaded_modules_info(os::LoadedModulesCallbackFunc callback, void *pa
   }
 
   dlclose(handle);
-#elif defined(__APPLE__)
+#elif defined(__APPLE__) && ! TARGET_OS_IPHONE
   for (uint32_t i = 1; i < _dyld_image_count(); i++) {
     // Value for top_address is returned as 0 since we don't have any information about module size
     if (callback(_dyld_get_image_name(i), (address)_dyld_get_image_header(i), (address)0, param)) {
@@ -3258,7 +3258,7 @@ void os::init(void) {
   Bsd::clock_init();
   initial_time_count = javaTimeNanos();
 
-#ifdef __APPLE__
+#if defined(__APPLE__) &&  ! TARGET_OS_IPHONE
   // XXXDARWIN
   // Work around the unaligned VM callbacks in hotspot's
   // sharedRuntime. The callbacks don't use SSE2 instructions, and work on
@@ -3804,6 +3804,7 @@ void os::pause() {
   }
 }
 
+#if ! TARGET_OS_IPHONE
 // Darwin has no "environ" in a dynamic library.
 #ifdef __APPLE__
   #include <crt_externs.h>
@@ -3877,6 +3878,10 @@ int os::fork_and_exec(char* cmd) {
     }
   }
 }
+#else // TARGET_OS_IPHONE
+int os::fork_and_exec(char* cmd) { return -1; }
+#endif // TARGET_OS_IPHONE
+
 
 // Get the default path to the core file
 // Returns the length of the string

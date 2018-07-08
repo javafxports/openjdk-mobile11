@@ -29,7 +29,9 @@
 #include "vm_version_ext_x86.hpp"
 
 #ifdef __APPLE__
+#if ! TARGET_OS_IPHONE
   #import <libproc.h>
+#endif
   #include <sys/time.h>
   #include <sys/sysctl.h>
   #include <mach/mach.h>
@@ -37,7 +39,11 @@
   #include <sys/socket.h>
   #include <net/if.h>
   #include <net/if_dl.h>
+#if ! TARGET_OS_IPHONE
   #include <net/route.h>
+#else
+  #define RTM_IFINFO2 0x12
+#endif
 #endif
 
 static const double NANOS_PER_SEC = 1000000000.0;
@@ -284,7 +290,7 @@ SystemProcessInterface::SystemProcesses::~SystemProcesses() {
 int SystemProcessInterface::SystemProcesses::system_processes(SystemProcess** system_processes, int* no_of_sys_processes) const {
   assert(system_processes != NULL, "system_processes pointer is NULL!");
   assert(no_of_sys_processes != NULL, "system_processes counter pointer is NULL!");
-#ifdef __APPLE__
+#if defined(__APPLE__) &&  ! TARGET_OS_IPHONE
   pid_t* pids = NULL;
   int pid_count = 0;
   ResourceMark rm;
