@@ -25,7 +25,15 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <net/if.h>
+#ifdef __APPLE__
+#include <TargetConditionals.h>
+#else
+#define TARGET_OS_IPHONE 0
+#endif
+#if ! TARGET_OS_IPHONE
 #include <net/if_arp.h>
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>

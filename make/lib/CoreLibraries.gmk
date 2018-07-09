@@ -228,7 +228,7 @@ ifeq ($(LIBJLI_ALL_ERGO), $(LIBJLI_EXCLUDE_ERGO))
 endif
 LIBJLI_EXCLUDE_FILES += $(notdir $(LIBJLI_EXCLUDE_ERGO))
 
-ifeq ($(OPENJDK_TARGET_OS), macosx)
+ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
   LIBJLI_EXCLUDE_FILES += java_md_solinux.c ergo.c ergo_i586.c
 
   BUILD_LIBJLI_java_md_macosx.c_CFLAGS := -x objective-c
