@@ -106,7 +106,7 @@ $(eval $(call SetupJdkLibrary, BUILD_LIBVERIFY, \
     NAME := verify, \
     OPTIMIZATION := $(LIBVERIFY_OPTIMIZATION), \
     CFLAGS := $(CFLAGS_JDKLIB), \
-    CFLAGS_ios := -I$(JDK_TOPDIR)/src/java.base/macosx/native/libjli, \
+    CFLAGS_ios := -I$(TOPDIR)/src/java.base/macosx/native/libjli, \
     DISABLED_WARNINGS_gcc := implicit-fallthrough, \
     DISABLED_WARNINGS_microsoft := 4244 4267, \
     LDFLAGS := $(LDFLAGS_JDKLIB) \
@@ -132,7 +132,7 @@ $(eval $(call SetupJdkLibrary, BUILD_LIBJAVA, \
     CFLAGS := $(CFLAGS_JDKLIB) \
         $(LIBJAVA_CFLAGS), \
     System.c_CFLAGS := $(VERSION_CFLAGS), \
-    CFLAGS_ios := -I$(JDK_TOPDIR)/src/java.base/macosx/native/libjava, \
+    CFLAGS_ios := -I$(TOPDIR)/src/java.base/macosx/native/libjava, \
     jdk_util.c_CFLAGS := $(VERSION_CFLAGS), \
     EXTRA_HEADER_DIRS := libfdlibm, \
     WARNINGS_AS_ERRORS_xlc := false, \
@@ -272,7 +272,7 @@ $(eval $(call SetupJdkLibrary, BUILD_LIBJLI, \
     EXTRA_FILES := $(LIBJLI_EXTRA_FILES), \
     OPTIMIZATION := HIGH, \
     CFLAGS := $(LIBJLI_CFLAGS_JDKLIB) $(LIBJLI_CFLAGS), \
-    CFLAGS_ios := -I$(JDK_TOPDIR)/src/java.base/macosx/native/libjli, \
+    CFLAGS_ios := -I$(TOPDIR)/src/java.base/macosx/native/libjli, \
     DISABLED_WARNINGS_solstudio := \
         E_ASM_DISABLES_OPTIMIZATION \
         E_STATEMENT_NOT_REACHED, \
