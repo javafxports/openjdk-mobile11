@@ -25,6 +25,8 @@
 
 include LauncherCommon.gmk
 
+ifneq ($(OPENJDK_TARGET_OS),ios)
+
 $(eval $(call IncludeCustomExtension, launcher/Launcher-java.base.gmk))
 
 JAVA_RC_FLAGS += -I$(TOPDIR)/src/java.base/windows/native/common
@@ -105,3 +107,4 @@ ifneq ($(findstring $(OPENJDK_TARGET_OS), macosx solaris aix), )
 endif
 
 ################################################################################
+endif

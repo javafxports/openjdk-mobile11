@@ -763,7 +763,7 @@ AC_DEFUN_ONCE([TOOLCHAIN_DETECT_TOOLCHAIN_CORE],
 # and/or are not needed on all platforms.
 AC_DEFUN_ONCE([TOOLCHAIN_DETECT_TOOLCHAIN_EXTRA],
 [
-  if test "x$OPENJDK_TARGET_OS" = "xmacosx"; then
+  if test "x$OPENJDK_TARGET_OS" = "xmacosx" || test "x$OPENJDK_TARGET_OS" = "xios"; then
     BASIC_PATH_PROGS(LIPO, lipo)
     BASIC_FIXUP_EXECUTABLE(LIPO)
     BASIC_REQUIRE_PROGS(OTOOL, otool)
@@ -880,7 +880,7 @@ AC_DEFUN_ONCE([TOOLCHAIN_DETECT_TOOLCHAIN_EXTRA],
 # for this, we can only do this after these have been setup.
 AC_DEFUN_ONCE([TOOLCHAIN_SETUP_BUILD_COMPILERS],
 [
-  if test "x$COMPILE_TYPE" = "xcross"; then
+  if test "x$COMPILE_TYPE" = "xcross" && test "x$OPENJDK_TARGET_OS" != xios ; then
     # Now we need to find a C/C++ compiler that can build executables for the
     # build platform. We can't use the AC_PROG_CC macro, since it can only be
     # used once. Also, we need to do this without adding a tools dir to the
