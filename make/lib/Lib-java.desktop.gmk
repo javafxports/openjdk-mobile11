@@ -34,7 +34,9 @@ $(eval $(call FillCacheFind, $(wildcard $(TOPDIR)/src/java.desktop/*/native)))
 ################################################################################
 # Create the AWT/2D libraries
 
-include Awt2dLibraries.gmk
+ifeq (,$(filter $(OPENJDK_TARGET_OS), android ios))
+  include Awt2dLibraries.gmk
+endif
 
 ################################################################################
 # Create the libjsound library
@@ -77,8 +79,9 @@ ifneq ($(OPENJDK_TARGET_OS), aix)
   ))
 
   $(BUILD_LIBJSOUND): $(call FindLib, java.base, java)
-
+ifneq ($(OPENJDK_TARGET_OS), ios)
   TARGETS += $(BUILD_LIBJSOUND)
+endif
 
 endif
 

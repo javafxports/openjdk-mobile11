@@ -23,6 +23,8 @@
 # questions.
 #
 
+ifneq ($(OPENJDK_TARGET_OS),ios)
+
 include LauncherCommon.gmk
 
 $(eval $(call SetupBuildLauncher, pack200, \
@@ -108,3 +110,4 @@ endif
 TARGETS += $(BUILD_UNPACKEXE)
 
 ################################################################################
+endif
