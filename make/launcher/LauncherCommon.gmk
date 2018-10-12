@@ -190,6 +190,7 @@ define SetupBuildLauncherBody
       CFLAGS_linux := -fPIC, \
       CFLAGS_solaris := -KPIC -DHAVE_GETHRTIME, \
       CFLAGS_windows := $$($1_CFLAGS_windows), \
+      CFLAGS_ios := -I$(TOPDIR)/src/java.base/macosx/native/libjli, \
       LDFLAGS := $$(LDFLAGS_JDKEXE) \
           $$(ORIGIN_ARG) \
           $$($1_LDFLAGS), \
@@ -213,7 +214,9 @@ define SetupBuildLauncherBody
   ))
 
   $1 += $$(BUILD_LAUNCHER_$1)
-  TARGETS += $$($1)
+  ifneq ($(OPENJDK_TARGET_OS), ios)
+    TARGETS += $$($1)
+  endif
 
   ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx aix))
     $$(BUILD_LAUNCHER_$1): $(SUPPORT_OUTPUTDIR)/native/java.base/libjli_static.a

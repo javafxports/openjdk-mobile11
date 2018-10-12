@@ -815,7 +815,7 @@ define SetupNativeCompilationBody
               $(CD) $$($1_OUTPUT_DIR) && \
                   $$($1_OBJCOPY) --add-gnu-debuglink=$$($1_DEBUGINFO_FILES) $$($1_TARGET)
 
-        else ifeq ($(OPENJDK_TARGET_OS), macosx)
+        else ifneq ($(findstring $(OPENJDK_TARGET_OS), ios macosx), )
           $1_DEBUGINFO_FILES := \
               $$($1_OUTPUT_DIR)/$$($1_BASENAME).dSYM/Contents/Info.plist \
               $$($1_OUTPUT_DIR)/$$($1_BASENAME).dSYM/Contents/Resources/DWARF/$$($1_BASENAME)

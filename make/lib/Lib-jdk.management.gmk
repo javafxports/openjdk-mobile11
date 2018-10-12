@@ -22,6 +22,8 @@
 # or visit www.oracle.com if you need additional information or have any
 # questions.
 #
+ifneq ($(OPENJDK_TARGET_OS), ios)
+
 
 include LibCommon.gmk
 
@@ -64,4 +66,5 @@ TARGETS += $(BUILD_LIBMANAGEMENT_EXT)
 
 # Include custom extension post hook
 $(eval $(call IncludeCustomExtension, lib/Lib-jdk.management-post.gmk))
+endif
 

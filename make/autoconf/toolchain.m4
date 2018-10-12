@@ -189,7 +189,7 @@ AC_DEFUN([TOOLCHAIN_SETUP_FILENAME_PATTERNS],
     STATIC_LIBRARY='lib[$]1.a'
     OBJ_SUFFIX='.o'
     EXE_SUFFIX=''
-    if test "x$OPENJDK_TARGET_OS" = xmacosx; then
+    if test "x$OPENJDK_TARGET_OS" = "xmacosx" || test "x$OPENJDK_TARGET_OS" = "xios" ; then
       # For full static builds, we're overloading the SHARED_LIBRARY
       # variables in order to limit the amount of changes required.
       # It would be better to remove SHARED and just use LIBRARY and
@@ -226,7 +226,7 @@ AC_DEFUN_ONCE([TOOLCHAIN_DETERMINE_TOOLCHAIN_TYPE],
   toolchain_var_name=VALID_TOOLCHAINS_$OPENJDK_BUILD_OS
   VALID_TOOLCHAINS=${!toolchain_var_name}
 
-  if test "x$OPENJDK_TARGET_OS" = xmacosx; then
+  if test "x$OPENJDK_TARGET_OS" = "xmacosx" || test "x$OPENJDK_TARGET_OS" = "xios" ; then
     if test -n "$XCODEBUILD"; then
       # On Mac OS X, default toolchain to clang after Xcode 5
       XCODE_VERSION_OUTPUT=`"$XCODEBUILD" -version 2>&1 | $HEAD -n 1`
@@ -763,7 +763,7 @@ AC_DEFUN_ONCE([TOOLCHAIN_DETECT_TOOLCHAIN_CORE],
 # and/or are not needed on all platforms.
 AC_DEFUN_ONCE([TOOLCHAIN_DETECT_TOOLCHAIN_EXTRA],
 [
-  if test "x$OPENJDK_TARGET_OS" = "xmacosx"; then
+  if test "x$OPENJDK_TARGET_OS" = "xmacosx" || test "x$OPENJDK_TARGET_OS" = "xios"; then
     BASIC_PATH_PROGS(LIPO, lipo)
     BASIC_FIXUP_EXECUTABLE(LIPO)
     BASIC_REQUIRE_PROGS(OTOOL, otool)
@@ -880,7 +880,7 @@ AC_DEFUN_ONCE([TOOLCHAIN_DETECT_TOOLCHAIN_EXTRA],
 # for this, we can only do this after these have been setup.
 AC_DEFUN_ONCE([TOOLCHAIN_SETUP_BUILD_COMPILERS],
 [
-  if test "x$COMPILE_TYPE" = "xcross"; then
+  if test "x$COMPILE_TYPE" = "xcross" && test "x$OPENJDK_TARGET_OS" != xios ; then
     # Now we need to find a C/C++ compiler that can build executables for the
     # build platform. We can't use the AC_PROG_CC macro, since it can only be
     # used once. Also, we need to do this without adding a tools dir to the

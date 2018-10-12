@@ -617,6 +617,9 @@ AC_DEFUN_ONCE([HOTSPOT_ENABLE_DISABLE_GTEST],
   else
     AC_MSG_ERROR([--enable-gtest must be either yes or no])
   fi
+  if test "x$OPENJDK_TARGET_OS" = xios || test "x$OPENJDK_TARGET_OS" = xandroid; then
+    BUILD_GTEST="false"
+  fi
 
   AC_SUBST(BUILD_GTEST)
 ])
