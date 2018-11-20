@@ -876,6 +876,7 @@ public class MacAppImageBuilder extends AbstractAppImageBuilder {
             else {
                 List<String> args = new ArrayList<>();
                 args.addAll(Arrays.asList("codesign",
+                        "-f", // force in case artifact is already signed (don't bail)
                         "-s", signingIdentity, // sign with this key
                         "--prefix", identifierPrefix,
                                 // use the identifier as a prefix
