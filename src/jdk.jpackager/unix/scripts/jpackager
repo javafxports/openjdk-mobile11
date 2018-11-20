@@ -99,5 +99,7 @@ fi
 # This is similar to "$@" except we had to strip out some arguments
 # that we don't want to be passed to the Java Packager.
 eval exec "$JAVA_CMD" ${DEBUG} ${MEMORY} ${JAVA_ARGS} \
+    --module-path ${JAVA_PACKAGER_PATH} \
+    --add-opens jdk.jlink/jdk.tools.jlink.internal.packager=jdk.jpackager \
     -m jdk.jpackager/jdk.jpackager.main.Main $args
     

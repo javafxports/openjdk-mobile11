@@ -466,6 +466,7 @@ int wmain(int argc, wchar_t* argv[]) {
     std::wstring javahome;
 
     std::wstring exe = GetCurrentExecutableName();
+    std::wstring exePath = ExtractFilePath(exe);
 
     if (exe.length() <= 0) {
         JavaVersion * jv2 = GetMaxVersion(HKEY_LOCAL_MACHINE,
@@ -478,7 +479,7 @@ int wmain(int argc, wchar_t* argv[]) {
             javacmd = L"java.exe";
         }
     } else {
-        javacmd = ExtractFilePath(exe) + L"\\java.exe";
+        javacmd = exePath + L"\\java.exe";
     }
 
     std::wstring cmd = L"\"" + javacmd + L"\"";
@@ -547,6 +548,8 @@ int wmain(int argc, wchar_t* argv[]) {
 
 
     cmd += debug + L" " + memory +
+                L" --module-path \"" + exePath + L"\"" +
+                L" --add-opens jdk.jlink/jdk.tools.jlink.internal.packager=jdk.jpackager" +
                 L" -m jdk.jpackager/jdk.jpackager.main.Main" +
                 L" " + args;
 
